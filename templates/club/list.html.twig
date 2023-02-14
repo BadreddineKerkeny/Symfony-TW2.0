@@ -1,0 +1,144 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ClubController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+    .center {text-align: center;}
+    .button {
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  cursor: pointer;
+  border-radius: 12px;
+  background-color: #008CBA;
+}
+
+
+</style>
+
+
+<div class ="example-wrapper">
+<div class="center">
+   <p> Les titres des formations : </p>
+
+</div>
+
+{% for i in list %}
+    <ul>
+    <li> {{i.Titre | upper }} 
+        {# Button #}
+        {% if i.nb_participants == 0  %}
+        <button class="button" type="button"
+         <a href="{{path('formation',{'titre':i.Titre})}}" />
+         Participer </button>
+        {% endif %}
+    </li>
+    
+    </ul>
+{% endfor %}
+
+
+<div class="center">
+   <p> Le nombre des formations est : {{ list |length }} </p>
+</div>
+
+
+<div class="center">
+   <p> Les formations theorique sont :</p>
+</div>
+{% for i in list %}
+{% if i.Description == 'formation theorique' %}
+    <ul>
+    <li> {{i.Titre }} </li>
+    </ul>
+{% endif %}
+{% endfor %}
+
+<div class="center">
+   <p> La formation ayant le plus grand nombre des 
+   participants est : </p>
+
+{% set maxValue = 0 %}
+{% set titre = "" %}
+{% for i in list %}
+    {% if i.nb_participants > maxValue %}
+        {% set maxValue = i.nb_participants %}
+        {% set titre = i.Titre %}  
+    {% endif %}
+{% endfor %}
+{{titre}}
+
+</div>
+
+
+
+
+{#     #}
+
+
+
+<div class="center">
+   <p> Le nombre total des participants est : </p>
+   {% set total = 0 %}  
+{% for i in list %}
+    {% set total = total + i.nb_participants %}
+{% endfor %}
+{{total}}
+</div>
+
+
+
+
+
+
+
+<div class="center">
+    {% for i in list %}
+    {% if list  is not defined  or list is null  %}
+        liste est vide !
+    {% endif %}
+    {% endfor %}
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
